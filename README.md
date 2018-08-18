@@ -158,6 +158,6 @@ class SomeClass {
     }
 }
 new SomeClass().on("some event")
-
+```
 ## License
 MIT
