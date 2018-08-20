@@ -40,7 +40,7 @@ class SomeClass {
 
     @cache()
     method() {
-       return ++counter
+       return ++this.counter
     }
 }
 
@@ -117,18 +117,7 @@ class SomeClass {
 }
 ```
 
-### Once
-method will be called max n times and return last call result
-```javascript
-import { once } from 'appolo-decorators';
 
-class SomeClass {
-    @once(2)
-    method() {
-    // ...
-    }
-}
-```
 
 ### Interval
 set interval to method once called

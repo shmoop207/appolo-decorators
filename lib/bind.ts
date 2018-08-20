@@ -1,6 +1,6 @@
 export function bind(target: object, propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor | void {
     if (!descriptor || (typeof descriptor.value !== "function")) {
-        throw new TypeError(`${propertyKey} is not a method! Only methods can be decorated with @bind`);
+        throw new TypeError(`${propertyKey} is not a method`);
     }
 
     return {
