@@ -3,29 +3,37 @@ import _ = require('lodash');
 import Timer = NodeJS.Timer;
 
 interface IOptions {
-    resolver?: Function,
-    maxSize?: number,
-    maxAge?: number,
-    clone?: boolean,
-    getMethod?: "get" | "peek" | "getByExpire" | "peekByExpire"
-    logger?: { error: (...args: any[]) => void }
-    interval?: number
+    resolver?: Function;
+    maxSize?: number;
+    maxAge?: number;
+    clone?: boolean;
+    peek?: boolean;
+    refresh?: boolean;
+    logger?: { error: (...args: any[]) => void };
+    interval?: number;
 
 }
 
 interface IInnerOptions extends IOptions {
-    isPromise?: boolean
-    isExpireCache?: boolean
+    isPromise?: boolean;
     timer?: Timer;
+    getMethod?: "get" | "peek" | "getByExpire" | "peekByExpire"
+
 }
 
 export function cache(cacheOptions: IOptions = {}) {
 
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
 
-        let options: IInnerOptions = _.defaults({}, cacheOptions, {getMethod: "get", clone: false});
 
-        options.isExpireCache = options.getMethod == "getByExpire" || options.getMethod == "peekByExpire";
+        let options: IInnerOptions = _.defaults({}, cacheOptions);
+
+        options.getMethod = options.peek ? "peek" : "get";
+
+        if (options.refresh) {
+            options.getMethod = options.peek ? "peekByExpire" : "getByExpire";
+        }
+
         options.isPromise = false;
 
         const originalMethod = descriptor.value,
@@ -56,7 +64,7 @@ export function cache(cacheOptions: IOptions = {}) {
 
     function getValueFromMemory(scope: any, originalMethod: any, key: any, args: any[], cache: Cache<any, any>, options: IInnerOptions) {
 
-        let result = cache[options.getMethod || "get"](key);
+        let result = cache[options.getMethod](key);
 
         if (!result) {
             return null;
@@ -64,7 +72,7 @@ export function cache(cacheOptions: IOptions = {}) {
 
         let value = result;
 
-        if (options.isExpireCache) {
+        if (options.refresh) {
             value = result.value;
 
             if (!result.validExpire) {

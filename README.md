@@ -25,12 +25,13 @@ cache method results using [`appolo-cache`](https://github.com/shmoop207/appolo-
 
 options:
 
-- `maxSize` - max cache size default 1000
-- `maxAge` - optional set maximum age in ms of all cache items. if set getting expired item it will return null
-- `clone` - clone the cache result default false
+- `maxSize` - max cache size default `1000`
+- `maxAge` - optional set maximum age in ms of all cache items default unlimited
+- `clone` - clone the cache result default `false`
 - `interval` - set cache refresh interval
 - `resolver` - function to get the cache key by default the fist argument will be used as the cache key
-- `getMethod` - the method will be used the get values from cache default `get`
+- `peek` - boolean use `peek` method instead of get default `false`
+- `refresh` - boolean refresh cache on half `maxAge` expire default `false`
 
 ```javascript
 import { cache } from 'appolo-decorators';
