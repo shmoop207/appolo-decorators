@@ -1,4 +1,7 @@
 # Appolo Decorators
+[![Build Status](https://travis-ci.org/shmoop207/appolo-decorators.svg?branch=master)](https://travis-ci.org/shmoop207/appolo-decorators) [![Dependencies status](https://david-dm.org/shmoop207/appolo-decorators.svg)](https://david-dm.org/shmoop207/appolo-decorators) [![NPM version](https://badge.fury.io/js/appolo-decorators.svg)](https://badge.fury.io/js/appolo-decorators)  [![npm Downloads](https://img.shields.io/npm/dm/appolo-decorators.svg?style=flat)](https://www.npmjs.com/package/appolo-decorators)
+[![Known Vulnerabilities](https://snyk.io/test/github/shmoop207/appolo-decorators/badge.svg)](https://snyk.io/test/github/shmoop207/appolo-decorators)
+
 useful decorators
 The cache will remove the oldest used item when reached max capacity 
 ## Installation:
