@@ -127,6 +127,53 @@ describe("decorator", function () {
 
     });
 
+    it('should call cache with key', async () => {
+
+        class Test {
+
+            test = 0;
+
+            @cache()
+            handle(key:string) {
+                return ++this.test;
+            }
+        }
+
+        let test = new Test();
+
+        test.handle("a");
+        test.handle("a");
+        test.handle("b");
+
+
+        test.test.should.be.eq(2);
+
+    });
+
+    it('should call cache with multi key', async () => {
+
+        class Test {
+
+            test = 0;
+
+            @cache({multi:true})
+            handle(key:string,key2:string) {
+                return ++this.test;
+            }
+        }
+
+        let test = new Test();
+
+        test.handle("a","b");
+        test.handle("a","b");
+        test.handle("a","c");
+
+
+        test.test.should.be.eq(2);
+
+    });
+
+
     it('should call async cache', async () => {
 
         class Test {

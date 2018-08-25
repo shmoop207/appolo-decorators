@@ -11,6 +11,7 @@ interface IOptions {
     refresh?: boolean;
     logger?: { error: (...args: any[]) => void };
     interval?: number;
+    multi?:boolean
 
 }
 
@@ -37,11 +38,14 @@ export function cache(cacheOptions: IOptions = {}) {
         options.isPromise = false;
 
         const originalMethod = descriptor.value,
-            cache = new Cache(options);
+            cache = new Cache(options),
+            argsLength = descriptor.value.length;
 
         descriptor.value = function (...args) {
 
-            let key = options.resolver ? options.resolver.apply(this, args) : args[0];
+            let key = options.resolver
+                ? options.resolver.apply(this, args)
+                : ((argsLength  > 1 && options.multi) ? JSON.stringify(arguments) : arguments[0]);
 
             if (options.interval && !options.timer) {
                 options.timer = setInterval(() => refreshValue(this, originalMethod, key, args, cache, options), options.interval)

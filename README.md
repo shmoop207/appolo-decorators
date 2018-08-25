@@ -33,6 +33,8 @@ options:
 - `clone` - clone the cache result default `false`
 - `interval` - set cache refresh interval
 - `resolver` - function to get the cache key by default the fist argument will be used as the cache key
+- `multi` - boolean if no resolver defined use all the arguments as key else use the first argument as key default `false`
+
 - `peek` - boolean use `peek` method instead of get default `false`
 - `refresh` - boolean refresh cache on half `maxAge` expire default `false`
 

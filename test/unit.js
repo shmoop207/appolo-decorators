@@ -98,6 +98,42 @@ describe("decorator", function () {
         test.handle();
         test.test.should.be.eq(1);
     });
+    it('should call cache with key', async () => {
+        class Test {
+            constructor() {
+                this.test = 0;
+            }
+            handle(key) {
+                return ++this.test;
+            }
+        }
+        tslib_1.__decorate([
+            index_1.cache()
+        ], Test.prototype, "handle", null);
+        let test = new Test();
+        test.handle("a");
+        test.handle("a");
+        test.handle("b");
+        test.test.should.be.eq(2);
+    });
+    it('should call cache with multi key', async () => {
+        class Test {
+            constructor() {
+                this.test = 0;
+            }
+            handle(key, key2) {
+                return ++this.test;
+            }
+        }
+        tslib_1.__decorate([
+            index_1.cache({ multi: true })
+        ], Test.prototype, "handle", null);
+        let test = new Test();
+        test.handle("a", "b");
+        test.handle("a", "b");
+        test.handle("a", "c");
+        test.test.should.be.eq(2);
+    });
     it('should call async cache', async () => {
         class Test {
             constructor() {

@@ -23,7 +23,7 @@
     "test": "mocha test"
   },
   "main": "./index.js",
-  "version": "6.0.7",
+  "version": "6.0.8",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -37,15 +37,17 @@
     "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.116",
+    "@types/benchmark": "^1.0.31",
     "@types/bluebird": "^3.5.23",
     "@types/chai": "^4.1.2",
+    "@types/lodash": "^4.14.116",
     "@types/mocha": "^5.0.0",
     "@types/node": "^10.7.1",
+    "benchmark": "^2.1.4",
     "bluebird": "^3.5.1",
     "chai": "^4.1.2",
     "mocha": "^5.0.5",
-    "typescript": "^2.8.1",
-    "tslib": "^1.9.3"
+    "tslib": "^1.9.3",
+    "typescript": "^2.8.1"
   }
 }
