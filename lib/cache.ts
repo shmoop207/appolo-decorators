@@ -11,13 +11,13 @@ interface IOptions {
     refresh?: boolean;
     logger?: { error: (...args: any[]) => void };
     interval?: number;
-    multi?:boolean
+    multi?: boolean
 
 }
 
 interface IInnerOptions extends IOptions {
     isPromise?: boolean;
-    timer?: Timer;
+    timer?: Timer | number;
     getMethod?: "get" | "peek" | "getByExpire" | "peekByExpire"
 
 }
@@ -43,12 +43,10 @@ export function cache(cacheOptions: IOptions = {}) {
 
         descriptor.value = function (...args) {
 
-            let key = options.resolver
-                ? options.resolver.apply(this, args)
-                : ((argsLength  > 1 && options.multi) ? JSON.stringify(arguments) : arguments[0]);
+            let key = getKey(argsLength, this, options,arguments);
 
             if (options.interval && !options.timer) {
-                options.timer = setInterval(() => refreshValue(this, originalMethod, key, args, cache, options), options.interval)
+                options.timer = setInterval(refreshValue.bind(null, this, originalMethod, args, key, cache, options), options.interval)
             }
 
             let item = getValueFromMemory(this, originalMethod, key, args, cache, options);
@@ -65,6 +63,20 @@ export function cache(cacheOptions: IOptions = {}) {
         };
         return descriptor;
     };
+
+    function getKey(argsLength: number, scope: any, options: IInnerOptions, args: any) {
+        if (options.resolver) {
+            return options.resolver.apply(scope, args)
+        }
+
+        if ((argsLength > 1 && options.multi)) {
+            return JSON.stringify(args)
+        }
+
+        let arg = args[0];
+
+        return typeof arg == "object" ? JSON.stringify(arg) : arg
+    }
 
     function getValueFromMemory(scope: any, originalMethod: any, key: any, args: any[], cache: Cache<any, any>, options: IInnerOptions) {
 

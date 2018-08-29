@@ -221,6 +221,53 @@ describe("decorator", function () {
 
     });
 
+    it('should call async cache with interval', async () => {
+
+        class Test {
+
+            test = 0;
+
+            @cache({interval:10})
+            async handle(name:string) {
+                return ++this.test;
+            }
+        }
+
+        let test = new Test();
+        await test.handle("a");
+        await Q.delay(12);
+
+        await test.handle("a");
+        await test.handle("a");
+
+
+        test.test.should.be.eq(2);
+
+    });
+
+    it('should call  cache key as object', async () => {
+
+        class Test {
+
+            test = 0;
+
+            @cache()
+            async handle(name:any) {
+                return ++this.test;
+            }
+        }
+
+        let test = new Test();
+        await test.handle({"a":"a"});
+
+        await test.handle({"a":"a"});
+        await test.handle({"a":"a"});
+
+
+        test.test.should.be.eq(1);
+
+    });
+
     it('should call once', async () => {
 
         class Test {

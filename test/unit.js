@@ -171,6 +171,43 @@ describe("decorator", function () {
         await test.handle();
         test.test.should.be.eq(2);
     });
+    it('should call async cache with interval', async () => {
+        class Test {
+            constructor() {
+                this.test = 0;
+            }
+            async handle(name) {
+                return ++this.test;
+            }
+        }
+        tslib_1.__decorate([
+            index_1.cache({ interval: 10 })
+        ], Test.prototype, "handle", null);
+        let test = new Test();
+        await test.handle("a");
+        await Q.delay(12);
+        await test.handle("a");
+        await test.handle("a");
+        test.test.should.be.eq(2);
+    });
+    it('should call  cache key as object', async () => {
+        class Test {
+            constructor() {
+                this.test = 0;
+            }
+            async handle(name) {
+                return ++this.test;
+            }
+        }
+        tslib_1.__decorate([
+            index_1.cache()
+        ], Test.prototype, "handle", null);
+        let test = new Test();
+        await test.handle({ "a": "a" });
+        await test.handle({ "a": "a" });
+        await test.handle({ "a": "a" });
+        test.test.should.be.eq(1);
+    });
     it('should call once', async () => {
         class Test {
             constructor() {
