@@ -43,7 +43,7 @@ export function cache(cacheOptions: IOptions = {}) {
 
         descriptor.value = function (...args) {
 
-            let key = getKey(argsLength, this, options,arguments);
+            let key = getKey(argsLength, this, options, arguments);
 
             if (options.interval && !options.timer) {
                 options.timer = setInterval(refreshValue.bind(null, this, originalMethod, args, key, cache, options), options.interval)
@@ -61,6 +61,9 @@ export function cache(cacheOptions: IOptions = {}) {
 
 
         };
+
+        descriptor.value.cache = cache;
+
         return descriptor;
     };
 

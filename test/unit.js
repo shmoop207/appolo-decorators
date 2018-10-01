@@ -4,6 +4,7 @@ const tslib_1 = require("tslib");
 const chai = require("chai");
 const Q = require("bluebird");
 const index_1 = require("../index");
+const appolo_cache_1 = require("appolo-cache");
 let should = chai.should();
 describe("decorator", function () {
     it('should call throttle', async () => {
@@ -114,6 +115,7 @@ describe("decorator", function () {
         test.handle("a");
         test.handle("a");
         test.handle("b");
+        test.handle.cache.should.be.instanceOf(appolo_cache_1.Cache);
         test.test.should.be.eq(2);
     });
     it('should call cache with multi key', async () => {

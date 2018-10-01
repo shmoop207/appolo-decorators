@@ -1,7 +1,8 @@
 "use strict";
 import chai = require('chai');
 import Q = require('bluebird');
-import {bind, cache, debounce, delay, throttle,once} from "../index";
+import {bind, cache, debounce, delay, once, throttle} from "../index";
+import {Cache} from "appolo-cache";
 
 let should = chai.should();
 
@@ -134,7 +135,7 @@ describe("decorator", function () {
             test = 0;
 
             @cache()
-            handle(key:string) {
+            handle(key: string) {
                 return ++this.test;
             }
         }
@@ -144,6 +145,8 @@ describe("decorator", function () {
         test.handle("a");
         test.handle("a");
         test.handle("b");
+
+        (test.handle as any).cache.should.be.instanceOf(Cache)
 
 
         test.test.should.be.eq(2);
@@ -156,17 +159,17 @@ describe("decorator", function () {
 
             test = 0;
 
-            @cache({multi:true})
-            handle(key:string,key2:string) {
+            @cache({multi: true})
+            handle(key: string, key2: string) {
                 return ++this.test;
             }
         }
 
         let test = new Test();
 
-        test.handle("a","b");
-        test.handle("a","b");
-        test.handle("a","c");
+        test.handle("a", "b");
+        test.handle("a", "b");
+        test.handle("a", "c");
 
 
         test.test.should.be.eq(2);
@@ -227,8 +230,8 @@ describe("decorator", function () {
 
             test = 0;
 
-            @cache({interval:10})
-            async handle(name:string) {
+            @cache({interval: 10})
+            async handle(name: string) {
                 return ++this.test;
             }
         }
@@ -252,16 +255,16 @@ describe("decorator", function () {
             test = 0;
 
             @cache()
-            async handle(name:any) {
+            async handle(name: any) {
                 return ++this.test;
             }
         }
 
         let test = new Test();
-        await test.handle({"a":"a"});
+        await test.handle({"a": "a"});
 
-        await test.handle({"a":"a"});
-        await test.handle({"a":"a"});
+        await test.handle({"a": "a"});
+        await test.handle({"a": "a"});
 
 
         test.test.should.be.eq(1);
