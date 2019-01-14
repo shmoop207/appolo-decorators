@@ -13,6 +13,8 @@ export function interval(milliseconds: number = 0) {
             clearInterval(interval);
 
             interval = setInterval(() => originalMethod.apply(this, args), milliseconds);
+
+            return originalMethod.apply(this, args);
         };
         return descriptor;
     }
