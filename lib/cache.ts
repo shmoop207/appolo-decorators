@@ -35,6 +35,8 @@ export function cache(cacheOptions: IOptions = {}) {
             options.getMethod = options.peek ? "peekByExpire" : "getByExpire";
         }
 
+        let _intervals = new Map<any, Timer>();
+
         options.isPromise = false;
 
         const originalMethod = descriptor.value,
@@ -45,8 +47,11 @@ export function cache(cacheOptions: IOptions = {}) {
 
             let key = getKey(argsLength, this, options, arguments);
 
-            if (options.interval && !options.timer) {
-                options.timer = setInterval(refreshValue.bind(null, this, originalMethod, args, key, cache, options), options.interval)
+            if (options.interval && !_intervals.get(key)) {
+
+                let interval = setInterval(refreshValue.bind(null, this, originalMethod, args, key, cache, options), options.interval);
+
+                _intervals.set(key, interval)
             }
 
             let item = getValueFromMemory(this, originalMethod, key, args, cache, options);
