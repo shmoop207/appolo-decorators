@@ -23,7 +23,7 @@
     "test": "mocha test --exit"
   },
   "main": "./index.js",
-  "version": "6.0.12",
+  "version": "6.0.13",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -33,7 +33,7 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "appolo-cache": "^6.0.6",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {

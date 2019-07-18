@@ -22,6 +22,8 @@ interface IInnerOptions extends IOptions {
 
 }
 
+const promiseCache: Map<any, any> = new Map();
+
 export function cache(cacheOptions: IOptions = {}) {
 
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
@@ -120,6 +122,12 @@ export function cache(cacheOptions: IOptions = {}) {
 
     function getValue(scope: any, originalMethod: any, args: any[], key: any, cache: Cache<any, any>, options: IInnerOptions): Promise<any> | any {
 
+        let promiseCacheItem = promiseCache.get(key);
+
+        if (promiseCacheItem) {
+            return promiseCacheItem;
+        }
+
         let result = originalMethod.apply(scope, args);
 
         if (!result || !result.then || !result.catch) {
@@ -128,10 +136,17 @@ export function cache(cacheOptions: IOptions = {}) {
         }
 
         options.isPromise = true;
+
         let value = result.then((data) => {
             cache.set(key, options.clone ? JSON.stringify(data) : data, options.maxAge);
+            promiseCache.delete(key);
             return data
+        }).catch((e) => {
+            promiseCache.delete(key);
+            throw e;
         });
+
+        promiseCache.set(key, value);
 
         return value
     }

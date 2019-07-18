@@ -303,5 +303,28 @@ describe("decorator", function () {
 
     });
 
+    it('should call async mutli same key cache', async () => {
+
+        class Test {
+
+            test = 0;
+
+            @cache()
+            async handle(key:number) {
+                await Q.delay(10);
+                return ++this.test;
+            }
+        }
+
+        let test = new Test();
+       let [result1,result2,result3] =  await Promise.all([test.handle(1),test.handle(1),test.handle(2)]);
+
+        test.test.should.be.eq(2);
+        result2.should.be.eq(1);
+        result1.should.be.eq(1);
+        result3.should.be.eq(2);
+
+    });
+
 
 });

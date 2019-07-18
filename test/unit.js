@@ -239,5 +239,25 @@ describe("decorator", function () {
         test.test.should.be.eq(1);
         test.test2.should.be.eq(2);
     });
+    it('should call async mutli same key cache', async () => {
+        class Test {
+            constructor() {
+                this.test = 0;
+            }
+            async handle(key) {
+                await Q.delay(10);
+                return ++this.test;
+            }
+        }
+        tslib_1.__decorate([
+            index_1.cache()
+        ], Test.prototype, "handle", null);
+        let test = new Test();
+        let [result1, result2, result3] = await Promise.all([test.handle(1), test.handle(1), test.handle(2)]);
+        test.test.should.be.eq(2);
+        result2.should.be.eq(1);
+        result1.should.be.eq(1);
+        result3.should.be.eq(2);
+    });
 });
 //# sourceMappingURL=unit.js.map
