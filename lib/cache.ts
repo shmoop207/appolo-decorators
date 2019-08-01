@@ -18,18 +18,20 @@ interface IOptions {
 interface IInnerOptions extends IOptions {
     isPromise?: boolean;
     timer?: Timer | number;
+    promiseCache?: Map<any, any>
+
     getMethod?: "get" | "peek" | "getByExpire" | "peekByExpire"
 
 }
 
-const promiseCache: Map<any, any> = new Map();
 
 export function cache(cacheOptions: IOptions = {}) {
 
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
 
+        let options: IInnerOptions = _.defaults({}, cacheOptions as any);
 
-        let options: IInnerOptions = _.defaults({}, cacheOptions);
+        options.promiseCache = new Map<any, any>();
 
         options.getMethod = options.peek ? "peek" : "get";
 
@@ -122,7 +124,7 @@ export function cache(cacheOptions: IOptions = {}) {
 
     function getValue(scope: any, originalMethod: any, args: any[], key: any, cache: Cache<any, any>, options: IInnerOptions): Promise<any> | any {
 
-        let promiseCacheItem = promiseCache.get(key);
+        let promiseCacheItem = options.promiseCache.get(key);
 
         if (promiseCacheItem) {
             return promiseCacheItem;
@@ -139,14 +141,14 @@ export function cache(cacheOptions: IOptions = {}) {
 
         let value = result.then((data) => {
             cache.set(key, options.clone ? JSON.stringify(data) : data, options.maxAge);
-            promiseCache.delete(key);
+            options.promiseCache.delete(key);
             return data
         }).catch((e) => {
-            promiseCache.delete(key);
+            options.promiseCache.delete(key);
             throw e;
         });
 
-        promiseCache.set(key, value);
+        options.promiseCache.set(key, value);
 
         return value
     }
