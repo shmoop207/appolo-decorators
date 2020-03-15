@@ -23,7 +23,7 @@
     "test": "mocha test --exit"
   },
   "main": "./index.js",
-  "version": "6.0.14",
+  "version": "7.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -33,21 +33,18 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "appolo-cache": "^6.0.6",
-    "lodash": "^4.17.14",
+    "appolo-utils": "^0.0.41",
     "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {
     "@types/benchmark": "^1.0.31",
-    "@types/bluebird": "^3.5.24",
-    "@types/chai": "^4.1.6",
-    "@types/lodash": "^4.14.116",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.11.3",
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.9.1",
     "benchmark": "^2.1.4",
-    "bluebird": "^3.5.2",
     "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "tslib": "^1.9.3",
-    "typescript": "^3.1.1"
+    "mocha": "^7.1.0",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
   }
 }

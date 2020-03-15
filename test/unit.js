@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const chai = require("chai");
-const Q = require("bluebird");
+const appolo_utils_1 = require("appolo-utils");
 const index_1 = require("../index");
 const appolo_cache_1 = require("appolo-cache");
 let should = chai.should();
@@ -17,14 +17,15 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.throttle(10, { leading: false })
+            index_1.throttle(10)
         ], Test.prototype, "handle", null);
         let test = new Test();
         test.handle();
         test.handle();
         test.handle();
-        await Q.delay(11);
-        test.test.should.be.eq(1);
+        await appolo_utils_1.Promises.delay(12);
+        test.handle();
+        test.test.should.be.eq(2);
     });
     it('should call debounce', async () => {
         class Test {
@@ -42,9 +43,9 @@ describe("decorator", function () {
         test.handle();
         test.handle();
         test.handle();
-        await Q.delay(5);
+        await appolo_utils_1.Promises.delay(5);
         test.test.should.be.eq(0);
-        await Q.delay(11);
+        await appolo_utils_1.Promises.delay(11);
         test.test.should.be.eq(1);
     });
     it('should call bind', async () => {
@@ -76,9 +77,9 @@ describe("decorator", function () {
         ], Test.prototype, "handle", null);
         let test = new Test();
         test.handle();
-        await Q.delay(5);
+        await appolo_utils_1.Promises.delay(5);
         test.test.should.be.eq(0);
-        await Q.delay(11);
+        await appolo_utils_1.Promises.delay(11);
         test.test.should.be.eq(1);
     });
     it('should call cache', async () => {
@@ -168,7 +169,7 @@ describe("decorator", function () {
         ], Test.prototype, "handle", null);
         let test = new Test();
         await test.handle();
-        await Q.delay(12);
+        await appolo_utils_1.Promises.delay(12);
         await test.handle();
         await test.handle();
         test.test.should.be.eq(2);
@@ -187,7 +188,7 @@ describe("decorator", function () {
         ], Test.prototype, "handle", null);
         let test = new Test();
         await test.handle("a");
-        await Q.delay(12);
+        await appolo_utils_1.Promises.delay(12);
         await test.handle("a");
         await test.handle("a");
         test.test.should.be.eq(2);
@@ -245,7 +246,7 @@ describe("decorator", function () {
                 this.test = 0;
             }
             async handle(key) {
-                await Q.delay(10);
+                await appolo_utils_1.Promises.delay(10);
                 return ++this.test;
             }
         }

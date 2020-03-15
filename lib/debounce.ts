@@ -1,12 +1,11 @@
-import _ = require('lodash');
-import {DebounceSettings} from "lodash";
+import {Functions} from 'appolo-utils';
 
-export function debounce(milliseconds: number = 0, options?: DebounceSettings) {
+export function debounce(milliseconds: number = 0, immediate = false) {
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
 
         const originalMethod = descriptor.value;
 
-        descriptor.value = _.debounce(originalMethod, milliseconds, options);
+        descriptor.value = Functions.debounce(originalMethod, milliseconds, immediate);
 
         return descriptor;
     }
