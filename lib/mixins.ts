@@ -1,13 +1,8 @@
-import * as _ from "lodash";
+import {Functions} from 'appolo-utils';
 
 export function mixins(mixins: Function | Function[]): (fn: Function) => void {
     return function (fn: Function) {
 
-        _.forEach(_.isArray(mixins) ? mixins : [mixins], (mixin) => {
-            _(Object.getOwnPropertyNames(mixin.prototype))
-                .without("constructor")
-                .forEach(name => fn.prototype[name] = mixin.prototype[name])
-
-        });
+        Functions.mixins(fn, mixins);
     }
 }

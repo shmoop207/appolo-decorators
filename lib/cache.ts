@@ -1,6 +1,6 @@
 import {Cache} from "appolo-cache";
-import _ = require('lodash');
 import Timer = NodeJS.Timer;
+import {Objects} from 'appolo-utils';
 
 interface IOptions {
     resolver?: Function;
@@ -29,7 +29,7 @@ export function cache(cacheOptions: IOptions = {}) {
 
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
 
-        let options: IInnerOptions = _.defaults({}, cacheOptions as any);
+        let options: IInnerOptions = Objects.defaults({}, cacheOptions as any);
 
         options.promiseCache = new Map<any, any>();
 
