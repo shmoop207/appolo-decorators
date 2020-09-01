@@ -1,4 +1,4 @@
-import {Functions}  from 'appolo-utils';
+import {Functions}  from '@appolo/utils';
 
 export function throttle(milliseconds: number = 0) {
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {

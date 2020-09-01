@@ -1,6 +1,6 @@
 import {Cache} from "appolo-cache";
 import Timer = NodeJS.Timer;
-import {Objects} from 'appolo-utils';
+import {Objects} from '@appolo/utils';
 
 interface IOptions {
     resolver?: Function;

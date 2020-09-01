@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const chai = require("chai");
-const appolo_utils_1 = require("appolo-utils");
+const utils_1 = require("@appolo/utils");
 const index_1 = require("../index");
 const appolo_cache_1 = require("appolo-cache");
 let should = chai.should();
@@ -23,7 +23,7 @@ describe("decorator", function () {
         test.handle();
         test.handle();
         test.handle();
-        await appolo_utils_1.Promises.delay(12);
+        await utils_1.Promises.delay(12);
         test.handle();
         test.test.should.be.eq(2);
     });
@@ -43,9 +43,9 @@ describe("decorator", function () {
         test.handle();
         test.handle();
         test.handle();
-        await appolo_utils_1.Promises.delay(5);
+        await utils_1.Promises.delay(5);
         test.test.should.be.eq(0);
-        await appolo_utils_1.Promises.delay(11);
+        await utils_1.Promises.delay(11);
         test.test.should.be.eq(1);
     });
     it('should call bind', async () => {
@@ -77,9 +77,9 @@ describe("decorator", function () {
         ], Test.prototype, "handle", null);
         let test = new Test();
         test.handle();
-        await appolo_utils_1.Promises.delay(5);
+        await utils_1.Promises.delay(5);
         test.test.should.be.eq(0);
-        await appolo_utils_1.Promises.delay(11);
+        await utils_1.Promises.delay(11);
         test.test.should.be.eq(1);
     });
     it('should call cache', async () => {
@@ -169,7 +169,7 @@ describe("decorator", function () {
         ], Test.prototype, "handle", null);
         let test = new Test();
         await test.handle();
-        await appolo_utils_1.Promises.delay(12);
+        await utils_1.Promises.delay(12);
         await test.handle();
         await test.handle();
         test.test.should.be.eq(2);
@@ -188,7 +188,7 @@ describe("decorator", function () {
         ], Test.prototype, "handle", null);
         let test = new Test();
         await test.handle("a");
-        await appolo_utils_1.Promises.delay(12);
+        await utils_1.Promises.delay(12);
         await test.handle("a");
         await test.handle("a");
         test.test.should.be.eq(2);
@@ -246,7 +246,7 @@ describe("decorator", function () {
                 this.test = 0;
             }
             async handle(key) {
-                await appolo_utils_1.Promises.delay(10);
+                await utils_1.Promises.delay(10);
                 return ++this.test;
             }
         }

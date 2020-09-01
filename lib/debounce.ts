@@ -1,4 +1,4 @@
-import {Functions} from 'appolo-utils';
+import {Functions} from '@appolo/utils';
 
 export function debounce(milliseconds: number = 0, immediate = false) {
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {

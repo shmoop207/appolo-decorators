@@ -1,6 +1,6 @@
 "use strict";
 import chai = require('chai');
-import {Promises} from 'appolo-utils';
+import {Promises} from '@appolo/utils';
 import {bind, cache, debounce, delay, once, throttle} from "../index";
 import {Cache} from "appolo-cache";
 

@@ -1,4 +1,4 @@
-import {Functions} from 'appolo-utils';
+import {Functions} from '@appolo/utils';
 
 export function memoize(resolver?: Function) {
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
