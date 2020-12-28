@@ -36,7 +36,7 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "appolo-cache": "^6.0.6",
-    "@appolo/utils": "^8.0.0",
+    "@appolo/utils": "^8.0.5",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
