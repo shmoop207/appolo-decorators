@@ -17,7 +17,7 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.throttle(10)
+            (0, index_1.throttle)(10)
         ], Test.prototype, "handle", null);
         let test = new Test();
         test.handle();
@@ -37,7 +37,7 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.debounce(10)
+            (0, index_1.debounce)(10)
         ], Test.prototype, "handle", null);
         let test = new Test();
         test.handle();
@@ -73,7 +73,7 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.delay(10)
+            (0, index_1.delay)(10)
         ], Test.prototype, "handle", null);
         let test = new Test();
         test.handle();
@@ -92,7 +92,7 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.cache()
+            (0, index_1.cache)()
         ], Test.prototype, "handle", null);
         let test = new Test();
         test.handle();
@@ -110,7 +110,7 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.cache()
+            (0, index_1.cache)()
         ], Test.prototype, "handle", null);
         let test = new Test();
         test.handle("a");
@@ -129,7 +129,7 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.cache({ multi: true })
+            (0, index_1.cache)({ multi: true })
         ], Test.prototype, "handle", null);
         let test = new Test();
         test.handle("a", "b");
@@ -147,7 +147,7 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.cache()
+            (0, index_1.cache)()
         ], Test.prototype, "handle", null);
         let test = new Test();
         await test.handle();
@@ -165,7 +165,7 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.cache({ refresh: true, maxAge: 20 })
+            (0, index_1.cache)({ refresh: true, maxAge: 20 })
         ], Test.prototype, "handle", null);
         let test = new Test();
         await test.handle();
@@ -184,7 +184,7 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.cache({ interval: 10 })
+            (0, index_1.cache)({ interval: 10 })
         ], Test.prototype, "handle", null);
         let test = new Test();
         await test.handle("a");
@@ -203,7 +203,7 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.cache()
+            (0, index_1.cache)()
         ], Test.prototype, "handle", null);
         let test = new Test();
         await test.handle({ "a": "a" });
@@ -225,10 +225,10 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.once()
+            (0, index_1.once)()
         ], Test.prototype, "handle", null);
         tslib_1.__decorate([
-            index_1.once(2)
+            (0, index_1.once)(2)
         ], Test.prototype, "handle2", null);
         let test = new Test();
         test.handle();
@@ -251,7 +251,7 @@ describe("decorator", function () {
             }
         }
         tslib_1.__decorate([
-            index_1.cache()
+            (0, index_1.cache)()
         ], Test.prototype, "handle", null);
         let test = new Test();
         let [result1, result2, result3] = await Promise.all([test.handle(1), test.handle(1), test.handle(2)]);

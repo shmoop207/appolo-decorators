@@ -10,7 +10,7 @@ class Test {
     }
 }
 tslib_1.__decorate([
-    __1.cache({ peek: true })
+    (0, __1.cache)({ peek: true })
 ], Test.prototype, "get", null);
 let test = new Test();
 suite.add('set', function () {

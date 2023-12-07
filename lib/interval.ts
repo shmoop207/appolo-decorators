@@ -1,12 +1,10 @@
-import Timer = NodeJS.Timer;
-
 export function interval(milliseconds: number = 0) {
 
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
 
         const originalMethod = descriptor.value;
 
-        let interval: Timer;
+        let interval: NodeJS.Timeout;
 
         descriptor.value = function (...args) {
 
