@@ -37,7 +37,7 @@
   "dependencies": {
     "appolo-cache": "^8.0.0",
     "@appolo/utils": "^8.0.0",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.14"
   },
   "devDependencies": {
     "@types/benchmark": "^2.1.5",
